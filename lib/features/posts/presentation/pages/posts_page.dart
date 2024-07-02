@@ -1,11 +1,12 @@
 import 'package:clean_architecture_posts_app/core/strings/app_strings.dart';
 import 'package:clean_architecture_posts_app/core/widgets/loading_widget.dart';
+import 'package:clean_architecture_posts_app/features/posts/presentation/bloc/add_delete_update_post/add_delete_update_post_bloc.dart';
 import 'package:clean_architecture_posts_app/features/posts/presentation/bloc/posts/posts_bloc.dart';
 import 'package:clean_architecture_posts_app/features/posts/presentation/bloc/posts/posts_events.dart';
 import 'package:clean_architecture_posts_app/features/posts/presentation/bloc/posts/posts_state.dart';
-import 'package:clean_architecture_posts_app/features/posts/presentation/pages/add_update_post_page.dart';
 import 'package:clean_architecture_posts_app/features/posts/presentation/widgets/posts_page/list_of_posts_widget.dart';
 import 'package:clean_architecture_posts_app/features/posts/presentation/widgets/posts_page/message_display_widget.dart';
+import 'package:clean_architecture_posts_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,10 +37,10 @@ class PostsPage extends StatelessWidget {
       if (state is LoadingPostsState) {
         return const LoadingWidget();
       } else if (state is LoadedPostsState) {
-        
+        BlocProvider.of<PostsBloc>(context).posts = state.posts;
         return RefreshIndicator(
             onRefresh: () => _onRefresh(context),
-            child: ListOfPostsWidget(posts: state.posts));
+            child: const ListOfPostsWidget());
       } else if (state is ErrorPostsState) {
         return MessageDisplayWidget(
           message: state.message,
@@ -55,12 +56,11 @@ class PostsPage extends StatelessWidget {
   }
 
   Widget _buildFloatinBtn({required BuildContext context}) {
-    
     return FloatingActionButton(
       onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (_) => const AddUpdatePostPage(isUpdated: false)));
-        
+        BlocProvider.of<AddDeleteUpdatePostBloc>(context).isUpdated = false;
+        Navigator.of(context)
+            .pushNamed(RouteGenerator.addUpdatePostPage);
       },
       child: const Icon(Icons.add),
     );

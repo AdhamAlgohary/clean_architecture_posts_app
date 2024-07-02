@@ -1,13 +1,13 @@
 import 'package:clean_architecture_posts_app/core/screen_size.dart';
 import 'package:clean_architecture_posts_app/core/strings/app_strings.dart';
-import 'package:clean_architecture_posts_app/features/posts/domain/entities/post.dart';
+import 'package:clean_architecture_posts_app/features/posts/presentation/bloc/posts/posts_bloc.dart';
 import 'package:clean_architecture_posts_app/features/posts/presentation/widgets/post_detail_page/delete_btn_widget.dart';
 import 'package:clean_architecture_posts_app/features/posts/presentation/widgets/post_detail_page/edit_btn_widet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PostDetailPage extends StatelessWidget {
-  final Post post;
-  const PostDetailPage({super.key, required this.post});
+  const PostDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +28,13 @@ class PostDetailPage extends StatelessWidget {
   Widget _buildBody({required BuildContext context}) {
     final heightOfScreen = screenHeight(context: context);
     final widthOfScreen = screenWidth(context: context);
+    final post = BlocProvider.of<PostsBloc>(context).post;
     return Padding(
-      padding: EdgeInsets.all(0.05*heightOfScreen),
+      padding: EdgeInsets.all(0.05 * heightOfScreen),
       child: Column(
         children: [
           Text(
-            post.title,
+            post!.title,
             style: TextStyle(
                 fontSize: 0.06 * widthOfScreen, fontWeight: FontWeight.bold),
           ),
@@ -51,16 +52,9 @@ class PostDetailPage extends StatelessWidget {
             thickness: 0.008 * widthOfScreen,
             height: 0.05 * heightOfScreen,
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              EditBtnWidget(
-                post: post,
-              ),
-              DelteBtnWidget(
-                postId: post.id!,
-              )
-            ],
+            children: [EditBtnWidget(), DelteBtnWidget()],
           )
         ],
       ),

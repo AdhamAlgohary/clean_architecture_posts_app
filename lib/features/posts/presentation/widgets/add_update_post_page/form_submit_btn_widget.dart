@@ -22,12 +22,11 @@ class FormSubmitBtnWidget extends StatelessWidget {
       label: isUpdated
           ? const Text(
               editLabelInsideBtn,
-            style: TextStyle(color: secondaryColor),
+              style: TextStyle(color: secondaryColor),
             )
           : const Text(
               addLabelInsideBtn,
               style: TextStyle(color: secondaryColor),
-
             ),
       style: const ButtonStyle(
           backgroundColor: MaterialStatePropertyAll<Color>(primaryColor)),

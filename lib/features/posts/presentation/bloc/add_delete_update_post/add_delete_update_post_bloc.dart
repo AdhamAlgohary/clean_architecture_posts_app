@@ -9,11 +9,13 @@ import 'package:clean_architecture_posts_app/features/posts/presentation/bloc/ad
 import 'package:clean_architecture_posts_app/features/posts/presentation/bloc/add_delete_update_post/add_delete_update_post_state.dart';
 import 'package:dartz/dartz.dart';
 
+
 class AddDeleteUpdatePostBloc
     extends Bloc<AddDeleteUpdatePostEvent, AddDeleteUpdatePostState> {
   final AddPostUseCase addPost;
   final DeletePostUseCase deletePost;
   final UpdatePostUseCase updatePost;
+  bool? isUpdated;
   AddDeleteUpdatePostBloc(
       {required this.addPost,
       required this.deletePost,
