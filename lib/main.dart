@@ -20,14 +20,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          // BlocProvider(
-          //   create: (_) => ic.gi<PostsBloc>()..add(GetAllPostsEvent()),
-          // ),
+          BlocProvider(
+            create: (_) => ic.gi<PostsBloc>()..add(GetAllPostsEvent()),
+          ),
           BlocProvider(create: (_) => ic.gi<AddDeleteUpdatePostBloc>())
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: appTheme,           
+            theme: appTheme,
             home: const PostsPage()));
   }
 }

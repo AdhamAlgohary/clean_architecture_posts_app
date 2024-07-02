@@ -9,7 +9,6 @@ import 'package:clean_architecture_posts_app/features/posts/presentation/widgets
 import 'package:clean_architecture_posts_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:clean_architecture_posts_app/injection_container.dart' as ic;
 
 class PostsPage extends StatelessWidget {
   const PostsPage({super.key});
@@ -18,10 +17,7 @@ class PostsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: BlocProvider(
-        create: (_) => ic.gi<PostsBloc>()..add(GetAllPostsEvent()),
-        child: _buildBody(),
-      ),
+      body: _buildBody(),
       floatingActionButton: _buildFloatinBtn(
         context: context,
       ),
