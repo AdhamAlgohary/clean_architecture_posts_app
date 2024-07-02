@@ -1,4 +1,3 @@
-import 'package:clean_architecture_posts_app/core/app_theme.dart';
 import 'package:clean_architecture_posts_app/core/screen_size.dart';
 import 'package:clean_architecture_posts_app/core/strings/app_strings.dart';
 import 'package:clean_architecture_posts_app/features/posts/domain/entities/post.dart';
@@ -22,7 +21,6 @@ class PostDetailPage extends StatelessWidget {
     return AppBar(
       title: const Text(
         titleInAppBarInPostDetailPage,
-        style: TextStyle(color: secondaryColor),
       ),
     );
   }
@@ -31,7 +29,7 @@ class PostDetailPage extends StatelessWidget {
     final heightOfScreen = screenHeight(context: context);
     final widthOfScreen = screenWidth(context: context);
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(0.05*heightOfScreen),
       child: Column(
         children: [
           Text(

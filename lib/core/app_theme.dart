@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 
 const primaryColor = Color(0xff082659);
-const secondaryColor = Color(0xff51eec2);
+const secondaryColor = Color.fromARGB(255, 10, 10, 10);
 
 final appTheme = ThemeData(
-    appBarTheme:
-        const AppBarTheme(backgroundColor: primaryColor, centerTitle: true),
+    appBarTheme: const AppBarTheme(
+        backgroundColor: primaryColor,
+        centerTitle: true,
+        titleTextStyle: TextStyle(
+            color: secondaryColor, fontWeight: FontWeight.bold, fontSize: 30)),
+    elevatedButtonTheme: const ElevatedButtonThemeData(
+        style: ButtonStyle(
+            textStyle: MaterialStatePropertyAll<TextStyle>(
+                TextStyle(fontSize: 20)),
+            iconColor: MaterialStatePropertyAll<Color>(secondaryColor))),
     brightness: Brightness.light,
     primaryColor: primaryColor,
     progressIndicatorTheme:
@@ -20,7 +28,5 @@ final appTheme = ThemeData(
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: primaryColor),
-          borderRadius: BorderRadius.all(Radius.circular(8))
-        )
-        ));
+            borderSide: BorderSide(color: primaryColor),
+            borderRadius: BorderRadius.all(Radius.circular(8)))));

@@ -1,12 +1,11 @@
-import 'package:clean_architecture_posts_app/core/app_theme.dart';
 import 'package:clean_architecture_posts_app/core/strings/app_strings.dart';
 import 'package:clean_architecture_posts_app/core/widgets/loading_widget.dart';
 import 'package:clean_architecture_posts_app/features/posts/presentation/bloc/posts/posts_bloc.dart';
 import 'package:clean_architecture_posts_app/features/posts/presentation/bloc/posts/posts_events.dart';
 import 'package:clean_architecture_posts_app/features/posts/presentation/bloc/posts/posts_state.dart';
+import 'package:clean_architecture_posts_app/features/posts/presentation/pages/add_update_post_page.dart';
 import 'package:clean_architecture_posts_app/features/posts/presentation/widgets/posts_page/list_of_posts_widget.dart';
 import 'package:clean_architecture_posts_app/features/posts/presentation/widgets/posts_page/message_display_widget.dart';
-import 'package:clean_architecture_posts_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,7 +27,6 @@ class PostsPage extends StatelessWidget {
     return AppBar(
       title: const Text(
         titleInAppBar,
-        style: TextStyle(color: secondaryColor),
       ),
     );
   }
@@ -38,6 +36,7 @@ class PostsPage extends StatelessWidget {
       if (state is LoadingPostsState) {
         return const LoadingWidget();
       } else if (state is LoadedPostsState) {
+        
         return RefreshIndicator(
             onRefresh: () => _onRefresh(context),
             child: ListOfPostsWidget(posts: state.posts));
@@ -56,12 +55,12 @@ class PostsPage extends StatelessWidget {
   }
 
   Widget _buildFloatinBtn({required BuildContext context}) {
+    
     return FloatingActionButton(
       onPressed: () {
-        final navigateToAddPostPage = RouteGenerator.generateRoute(
-          const RouteSettings(name: '/addUpdatePostPage'),
-        );
-        Navigator.of(context).push(navigateToAddPostPage);
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => const AddUpdatePostPage(isUpdated: false)));
+        
       },
       child: const Icon(Icons.add),
     );

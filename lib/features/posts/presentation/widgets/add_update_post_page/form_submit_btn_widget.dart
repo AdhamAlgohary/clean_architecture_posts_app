@@ -15,20 +15,19 @@ class FormSubmitBtnWidget extends StatelessWidget {
       icon: isUpdated
           ? const Icon(
               Icons.edit,
-              color: secondaryColor,
             )
           : const Icon(
               Icons.add,
-              color: secondaryColor,
             ),
       label: isUpdated
           ? const Text(
               editLabelInsideBtn,
-              style: TextStyle(color: Colors.white),
+            style: TextStyle(color: secondaryColor),
             )
           : const Text(
               addLabelInsideBtn,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: secondaryColor),
+
             ),
       style: const ButtonStyle(
           backgroundColor: MaterialStatePropertyAll<Color>(primaryColor)),

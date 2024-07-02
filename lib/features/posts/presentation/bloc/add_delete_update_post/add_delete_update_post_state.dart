@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class AddDeleteUpdatePostState extends Equatable {
   const AddDeleteUpdatePostState();
+
   @override
   List<Object?> get props => [];
 }
@@ -21,6 +22,7 @@ class ErrorAddDeleteUpdatePostState extends AddDeleteUpdatePostState {
 
 class MessageAddDeleteUpdatePostState extends AddDeleteUpdatePostState {
   final String message;
+
   const MessageAddDeleteUpdatePostState({required this.message});
   @override
   List<Object?> get props => [message];

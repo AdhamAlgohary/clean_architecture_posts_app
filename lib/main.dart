@@ -4,6 +4,7 @@ import 'package:clean_architecture_posts_app/features/posts/presentation/bloc/po
 import 'package:clean_architecture_posts_app/features/posts/presentation/bloc/posts/posts_events.dart';
 import 'package:clean_architecture_posts_app/features/posts/presentation/pages/posts_page.dart';
 import 'package:clean_architecture_posts_app/injection_container.dart' as ic;
+import 'package:clean_architecture_posts_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
+            onGenerateRoute: RouteGenerator.generateRoute,
             theme: appTheme,
             home: const PostsPage()));
   }

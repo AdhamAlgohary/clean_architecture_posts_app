@@ -1,3 +1,4 @@
+import 'package:clean_architecture_posts_app/core/app_theme.dart';
 import 'package:clean_architecture_posts_app/core/strings/app_strings.dart';
 import 'package:clean_architecture_posts_app/core/utils/snackbar_msg.dart';
 import 'package:clean_architecture_posts_app/core/widgets/loading_widget.dart';
@@ -21,11 +22,10 @@ class DelteBtnWidget extends StatelessWidget {
       onPressed: () => _deleteDialog(context, postId),
       icon: const Icon(
         Icons.delete_outline_sharp,
-        color: Colors.black,
       ),
       label: const Text(
         deleteLabelInsideBtn,
-        style: TextStyle(color: Colors.black),
+        style: TextStyle(color: secondaryColor),
       ),
     );
   }
@@ -51,10 +51,8 @@ class DelteBtnWidget extends StatelessWidget {
           SnackbarMsg.showSnackBar(
               context: context, msg: state.message, isSuccessSnacBar: false);
         } else if (state is MessageAddDeleteUpdatePostState) {
-          final navigateToPostsPage = RouteGenerator.generateRoute(
-              const RouteSettings(name: '/'), );
-          Navigator.of(context)
-              .pushAndRemoveUntil(navigateToPostsPage, (route) => false);
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              RouteGenerator.postsPage, (route) => false);
           SnackbarMsg.showSnackBar(
               context: context, msg: state.message, isSuccessSnacBar: true);
         }
