@@ -40,24 +40,32 @@ class AddUpdatePostPage extends StatelessWidget {
 
     return BlocConsumer<AddDeleteUpdatePostBloc, AddDeleteUpdatePostState>(
         builder: (_, state) {
-      if (state is AddDeleteUpdatePostLoading) {
-        return const LoadingWidget();
-      } else {
-        return FormWidget(isUpdated: isUpdated!, post: isUpdated ? post : null);
+      switch (state) {
+        case AddDeleteUpdatePostLoading _:
+          return const LoadingWidget();
+        default:
+          return FormWidget(
+              isUpdated: isUpdated!, post: isUpdated ? post : null);
       }
     }, listener: (context, state) {
-      if (state is MessageAddDeleteUpdatePostState) {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-          RouteGenerator.postsPage,
-          (route) => false,
-        );
-        SnackbarMsg.showSnackBar(
-            context: context,
-            msg: isUpdated! ? successUpdateProcees : successAddProcess,
-            isSuccessSnacBar: true);
-      } else if (state is ErrorAddDeleteUpdatePostState) {
-        SnackbarMsg.showSnackBar(
-            context: context, msg: failedProcess, isSuccessSnacBar: false);
+      switch (state) {
+        case MessageAddDeleteUpdatePostState _:
+          {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              RouteGenerator.postsPage,
+              (route) => false,
+            );
+            SnackbarMsg.showSnackBar(
+                context: context,
+                msg: isUpdated! ? successUpdateProcees : successAddProcess,
+                isSuccessSnacBar: true);
+            break;
+          }
+        case ErrorAddDeleteUpdatePostState _:
+          SnackbarMsg.showSnackBar(
+              context: context, msg: failedProcess, isSuccessSnacBar: false);
+          break;
+        default:
       }
     });
   }

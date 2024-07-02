@@ -37,26 +37,34 @@ class DelteBtnWidget extends StatelessWidget {
       builder: (_) =>
           BlocConsumer<AddDeleteUpdatePostBloc, AddDeleteUpdatePostState>(
               builder: (_, state) {
-        if (state is AddDeleteUpdatePostLoading) {
-          return const AlertDialog(
-            title: LoadingWidget(),
-          );
-        } else {
-          return DeleteDialogWidget(
-            postId: postId,
-          );
+        switch (state) {
+          case AddDeleteUpdatePostLoading _:
+            return const AlertDialog(
+              title: LoadingWidget(),
+            );
+
+          default:
+            return DeleteDialogWidget(
+              postId: postId,
+            );
         }
       }, listener: (_, state) {
-        if (state is ErrorAddDeleteUpdatePostState) {
-          Navigator.of(context).pop();
-          SnackbarMsg.showSnackBar(
-              context: context, msg: state.message, isSuccessSnacBar: false);
-        } else if (state is MessageAddDeleteUpdatePostState) {
-          Navigator.of(context).pushNamedAndRemoveUntil(
-              RouteGenerator.postsPage, (route) => false);
-          SnackbarMsg.showSnackBar(
-              context: context, msg: state.message, isSuccessSnacBar: true);
+        switch (state) {
+          case ErrorAddDeleteUpdatePostState _:
+            Navigator.of(context).pop();
+            SnackbarMsg.showSnackBar(
+                context: context, msg: state.message, isSuccessSnacBar: false);
+
+            break;
+          case MessageAddDeleteUpdatePostState _:
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                RouteGenerator.postsPage, (route) => false);
+            SnackbarMsg.showSnackBar(
+                context: context, msg: state.message, isSuccessSnacBar: true);
+            break;
+          default:
         }
+        
       }),
     );
   }

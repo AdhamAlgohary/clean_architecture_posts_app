@@ -34,19 +34,23 @@ class PostsPage extends StatelessWidget {
 
   Widget _buildBody() {
     return BlocBuilder<PostsBloc, PostsState>(builder: (context, state) {
-      if (state is LoadingPostsState) {
-        return const LoadingWidget();
-      } else if (state is LoadedPostsState) {
-        BlocProvider.of<PostsBloc>(context).posts = state.posts;
-        return RefreshIndicator(
-            onRefresh: () => _onRefresh(context),
-            child: const ListOfPostsWidget());
-      } else if (state is ErrorPostsState) {
-        return MessageDisplayWidget(
-          message: state.message,
-        );
-      } else {
-        return const LoadingWidget();
+      switch (state) {
+        case LoadingPostsState _:
+          return const LoadingWidget();
+        case LoadedPostsState _:
+          {
+            BlocProvider.of<PostsBloc>(context).posts = state.posts;
+            return RefreshIndicator(
+                onRefresh: () => _onRefresh(context),
+                child: const ListOfPostsWidget());
+          }
+        case ErrorPostsState _:
+          return MessageDisplayWidget(
+            message: state.message,
+          );
+
+        default:
+          return const LoadingWidget();
       }
     });
   }
@@ -59,8 +63,7 @@ class PostsPage extends StatelessWidget {
     return FloatingActionButton(
       onPressed: () {
         BlocProvider.of<AddDeleteUpdatePostBloc>(context).isUpdated = false;
-        Navigator.of(context)
-            .pushNamed(RouteGenerator.addUpdatePostPage);
+        Navigator.of(context).pushNamed(RouteGenerator.addUpdatePostPage);
       },
       child: const Icon(Icons.add),
     );

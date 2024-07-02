@@ -9,7 +9,7 @@ import 'package:dartz/dartz.dart';
 
 class PostsBloc extends Bloc<PostsEvent, PostsState> {
   final GetAllPostsUseCase getAllPosts;
-  List<Post>? posts;
+  List<Post> posts=[];
   Post? post;
 
   PostsBloc({required this.getAllPosts}) : super(PostsIntial()) {

@@ -14,7 +14,7 @@ class ListOfPostsWidget extends StatelessWidget {
       padding:
           EdgeInsets.symmetric(vertical: 0.01 * screenHeight(context: context)),
       child: ListView.separated(
-        itemCount: posts!.length,
+        itemCount: posts.length,
         itemBuilder: (_, index) => ListTile(
             leading: Text(
               '${posts[index].id}',
