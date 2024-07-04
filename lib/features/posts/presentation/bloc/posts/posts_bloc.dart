@@ -9,15 +9,21 @@ import 'package:dartz/dartz.dart';
 
 class PostsBloc extends Bloc<PostsEvent, PostsState> {
   final GetAllPostsUseCase getAllPosts;
-  List<Post> posts=[];
+  List<Post> posts = [];
   Post? post;
 
   PostsBloc({required this.getAllPosts}) : super(PostsIntial()) {
     on<PostsEvent>((event, emit) async {
-      if (event is GetAllPostsEvent || event is RefreshPostsEvent) {
-        emit(LoadingPostsState());
-        final postsOrFailure = await getAllPosts();
-        emit(_mapFailureOrPostsToState(postsOrFailure));
+      switch (event) {
+        case GetAllPostsEvent _ || RefreshPostsEvent _:
+          {
+            emit(LoadingPostsState());
+            final postsOrFailure = await getAllPosts();
+            emit(_mapFailureOrPostsToState(postsOrFailure));
+            break;
+          }
+
+        default:
       }
     });
   }

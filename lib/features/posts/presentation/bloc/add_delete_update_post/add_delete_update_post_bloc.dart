@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:clean_architecture_posts_app/core/error/failures.dart';
 import 'package:clean_architecture_posts_app/core/strings/failure_msgs.dart';
 import 'package:clean_architecture_posts_app/core/strings/sucess_msgs.dart';
@@ -8,7 +7,7 @@ import 'package:clean_architecture_posts_app/features/posts/domain/usecases/upda
 import 'package:clean_architecture_posts_app/features/posts/presentation/bloc/add_delete_update_post/add_delete_update_post_event.dart';
 import 'package:clean_architecture_posts_app/features/posts/presentation/bloc/add_delete_update_post/add_delete_update_post_state.dart';
 import 'package:dartz/dartz.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddDeleteUpdatePostBloc
     extends Bloc<AddDeleteUpdatePostEvent, AddDeleteUpdatePostState> {
@@ -22,18 +21,31 @@ class AddDeleteUpdatePostBloc
       required this.updatePost})
       : super(AddDeleteUpdatePostIntial()) {
     on<AddDeleteUpdatePostEvent>((event, emit) async {
-      if (event is AddPostEvent) {
-        emit(const AddDeleteUpdatePostLoading());
-        final addPostEvent = await addPost(event.posts);
-        emit(_eitherDoneMessageOrErrorState(addPostEvent, addSuccessMsg));
-      } else if (event is UpdatePostEvent) {
-        emit(const AddDeleteUpdatePostLoading());
-        final updatePostEvent = await updatePost(event.posts);
-        emit(_eitherDoneMessageOrErrorState(updatePostEvent, updateSuccessMsg));
-      } else if (event is DeletePostEvent) {
-        emit(const AddDeleteUpdatePostLoading());
-        final deletePostEvent = await deletePost(event.postId);
-        emit(_eitherDoneMessageOrErrorState(deletePostEvent, deleteSuccessMsg));
+      switch (event) {
+        case AddPostEvent _:
+          {
+            emit(const AddDeleteUpdatePostLoading());
+            final addPostEvent = await addPost(event.posts);
+            emit(_eitherDoneMessageOrErrorState(addPostEvent, addSuccessMsg));
+            break;
+          }
+        case UpdatePostEvent _:
+          {
+            emit(const AddDeleteUpdatePostLoading());
+            final updatePostEvent = await updatePost(event.posts);
+            emit(_eitherDoneMessageOrErrorState(
+                updatePostEvent, updateSuccessMsg));
+            break;
+          }
+        case DeletePostEvent _:
+          {
+            emit(const AddDeleteUpdatePostLoading());
+            final deletePostEvent = await deletePost(event.postId);
+            emit(_eitherDoneMessageOrErrorState(
+                deletePostEvent, deleteSuccessMsg));
+            break;
+          }
+        default:
       }
     });
   }

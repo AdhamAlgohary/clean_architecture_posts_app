@@ -1,6 +1,7 @@
 import 'package:clean_architecture_posts_app/core/network/network_info.dart';
 import 'package:clean_architecture_posts_app/features/posts/data/datasources/post_local_data_source.dart';
-import 'package:clean_architecture_posts_app/features/posts/data/datasources/post_remote_data_source.dart';
+import 'package:clean_architecture_posts_app/features/posts/data/datasources/post_remote_data_source/post_remote_data_source.dart';
+import 'package:clean_architecture_posts_app/features/posts/data/datasources/post_remote_data_source/post_remote_data_source_impl_with_dio.dart';
 import 'package:clean_architecture_posts_app/features/posts/data/repositories/post_repositories_impl.dart';
 import 'package:clean_architecture_posts_app/features/posts/domain/repositories/post_repositories.dart';
 import 'package:clean_architecture_posts_app/features/posts/domain/usecases/add_post_use_case.dart';
@@ -34,8 +35,9 @@ final gi = GetIt.instance;
   gi.registerLazySingleton<PostRepositories>(() => PostRepositoriesImpl(gi(),
       postRemoteDataSource: gi(), postLocalDataSource: gi()));
   //Datasources
-  gi.registerLazySingleton<PostRemoteDataSource>(
-      () => PostRemoteDataSourceImplWithHttp(client: gi()));
+  // gi.registerLazySingleton<PostRemoteDataSource>(
+  //     () => PostRemoteDataSourceImplWithHttp(client: gi()));
+  gi.registerLazySingleton<PostRemoteDataSource>(() => PostRemoteDataSourceImplWithDio());    
   gi.registerLazySingleton<PostLocalDataSource>(() =>
       PostLocalDataSourceImplWithSharedPerfernces(sharedPreferences: gi()));
   //Core

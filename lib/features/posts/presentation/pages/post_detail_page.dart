@@ -29,35 +29,40 @@ class PostDetailPage extends StatelessWidget {
     final heightOfScreen = screenHeight(context: context);
     final widthOfScreen = screenWidth(context: context);
     final post = BlocProvider.of<PostsBloc>(context).post;
-    return Padding(
-      padding: EdgeInsets.all(0.05 * heightOfScreen),
-      child: Column(
-        children: [
-          Text(
-            post!.title,
-            style: TextStyle(
-                fontSize: 0.06 * widthOfScreen, fontWeight: FontWeight.bold),
+    final orientationMode = MediaQuery.of(context).orientation;
+    final landScapeOriantationCondition =
+        orientationMode == Orientation.landscape;
+    return ListView(
+      padding: EdgeInsets.symmetric(
+          vertical: 0.2 * heightOfScreen,
+          horizontal: 0.1 * screenWidth(context: context)),
+      children: [
+        Text(
+          post!.title,
+          style: TextStyle(
+              fontSize: 0.06 * widthOfScreen, fontWeight: FontWeight.bold),
+        ),
+        Divider(
+          thickness: 0.008 * widthOfScreen,
+          height: 0.05 * heightOfScreen,
+        ),
+        Text(
+          post.body,
+          style: TextStyle(
+            fontSize: landScapeOriantationCondition
+                ? 0.025 * widthOfScreen
+                : 0.05 * widthOfScreen,
           ),
-          Divider(
-            thickness: 0.008 * widthOfScreen,
-            height: 0.05 * heightOfScreen,
-          ),
-          Text(
-            post.body,
-            style: TextStyle(
-              fontSize: 0.05 * widthOfScreen,
-            ),
-          ),
-          Divider(
-            thickness: 0.008 * widthOfScreen,
-            height: 0.05 * heightOfScreen,
-          ),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [EditBtnWidget(), DelteBtnWidget()],
-          )
-        ],
-      ),
+        ),
+        Divider(
+          thickness: 0.008 * widthOfScreen,
+          height: 0.1 * heightOfScreen,
+        ),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [EditBtnWidget(), DelteBtnWidget()],
+        )
+      ],
     );
   }
 }

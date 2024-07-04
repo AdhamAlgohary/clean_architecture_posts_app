@@ -3,7 +3,7 @@ import 'package:clean_architecture_posts_app/core/error/exceptions.dart';
 import 'package:clean_architecture_posts_app/core/error/failures.dart';
 import 'package:clean_architecture_posts_app/core/network/network_info.dart';
 import 'package:clean_architecture_posts_app/features/posts/data/datasources/post_local_data_source.dart';
-import 'package:clean_architecture_posts_app/features/posts/data/datasources/post_remote_data_source.dart';
+import 'package:clean_architecture_posts_app/features/posts/data/datasources/post_remote_data_source/post_remote_data_source.dart';
 import 'package:clean_architecture_posts_app/features/posts/data/models/post_model.dart';
 import 'package:clean_architecture_posts_app/features/posts/domain/entities/post.dart';
 import 'package:clean_architecture_posts_app/features/posts/domain/repositories/post_repositories.dart';
