@@ -1,10 +1,11 @@
 # clean_architecture_posts_app
 
- App to test clean architecture
+ Responsive app to test clean architecture
 
  ### Technolgies used : 
  - flutter
  - HTTP
+ - Dio
  - Shared Prefernces
    
 
